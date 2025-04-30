@@ -1,4 +1,4 @@
-"use client"; // Ensure this is the first line in the file
+"use client"; 
 
 import { JSX, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
@@ -8,27 +8,24 @@ import Footer from "@/components/Footer";
 
 export default function SuccessPage() {
   const [countdown, setCountdown] = useState(5);
-  const [sparkles, setSparkles] = useState<JSX.Element[]>([]); // State to hold sparkle elements
+  const [sparkles, setSparkles] = useState<JSX.Element[]>([]); 
   const router = useRouter();
   const { setFormData } = useFormData();
 
   useEffect(() => {
-    setFormData({}); // Clear form data
+    setFormData({});
 
-    // Start countdown
     const countdownInterval = setInterval(() => {
       setCountdown((prev) => prev - 1);
     }, 1000);
 
     const timeout = setTimeout(() => {
-      clearInterval(countdownInterval); // Clear the interval
-      router.push("/step1"); // Navigate to step1
+      clearInterval(countdownInterval); 
+      router.push("/step1"); 
     }, countdown * 1000);
-
-    // Generate sparkles on client
     const generateSparkles = () => {
       const sparklesArray = [];
-      const numberOfSparkles = 100; // Number of sparkles to generate
+      const numberOfSparkles = 100; 
 
       for (let i = 0; i < numberOfSparkles; i++) {
         const randomTop = Math.random();
@@ -49,11 +46,7 @@ export default function SuccessPage() {
       }
       setSparkles(sparklesArray);
     };
-
-    // Generate sparkles only on the client side (after the first render)
     generateSparkles();
-
-    // Cleanup on unmount
     return () => {
       clearInterval(countdownInterval);
       clearTimeout(timeout);
@@ -62,7 +55,6 @@ export default function SuccessPage() {
 
   return (
     <div className="flex flex-col items-center justify-center text-center px-4 relative">
-      {/* Sparkle Container */}
       <div className="sparkle-container">{sparkles}</div>
 
       <div className="fixed top-0 w-full z-50">
